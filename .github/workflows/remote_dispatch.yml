@@ -1,0 +1,13 @@
+name: add github member
+
+on:
+  repository_dispatch:
+    types: [add_github_member]
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - run: echo "member: $MEMBER"
