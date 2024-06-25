@@ -10,4 +10,5 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - run: echo "member: $MEMBER"
+      - name: Run with payload
+        run: echo "member:${{ github.event.client_payload.member }}"
