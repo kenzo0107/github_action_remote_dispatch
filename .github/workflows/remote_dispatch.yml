@@ -28,3 +28,13 @@ jobs:
           NEW_MEMBER: ${{ github.event.client_payload.member }}
         run: |
           echo "- ${NEW_MEMBER}" >> files/users.yml
+          NOW=$(date +%Y%m%d%H%M%s)
+          BRANCHNAME="add_new_member_${NOW}"
+          git checkout -b $BRANCHNAME
+          git add files/users.yml
+          git commit -m "add new member on ${NOW}"
+          git push origin $BRANCHNAME
+          gh pr create --head $BRANCHNAME \
+            --title "add new member on ${NOW}" \
+            --body "This PR created by GitHub Actions.\nsee: https://medpeer.esa.io/posts/29573" \
+            --reviewer medpeer-dev/sre
