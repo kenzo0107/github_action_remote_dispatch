@@ -40,5 +40,4 @@ jobs:
           git push origin $BRANCHNAME
           gh pr create --head $BRANCHNAME \
             --title "add new member on ${NOW}" \
-            --body "This PR created by GitHub Actions." \
-            --reviewer medpeer-dev/sre
+            --body "This PR created by GitHub Actions."
