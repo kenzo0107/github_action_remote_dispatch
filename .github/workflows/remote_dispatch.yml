@@ -29,6 +29,7 @@ jobs:
       - name: add a new member
         env:
           NEW_MEMBER: ${{ github.event.client_payload.member }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
           echo "- ${NEW_MEMBER}" >> files/users.yml
           NOW=$(date +%Y%m%d%H%M%s)
