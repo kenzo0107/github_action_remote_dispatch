@@ -31,13 +31,16 @@ jobs:
           NEW_MEMBER: ${{ github.event.client_payload.member }}
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
+          if grep -q '\- d' files/users.yml; then 
+            echo "${NEW_MEMBER} is already an member in org."; 
+            exit 0
+          fi
           echo "- ${NEW_MEMBER}" >> files/users.yml
-          NOW=$(date +%Y%m%d%H%M%s)
-          BRANCHNAME="add_new_member_${NOW}"
+          BRANCHNAME="add_new_member_${NEW_MEMBER}"
           git checkout -b $BRANCHNAME
           git add files/users.yml
-          git commit -m "add new member on ${NOW}"
+          git commit -m "add new member ${NEW_MEMBER}"
           git push origin $BRANCHNAME
           gh pr create --head $BRANCHNAME \
-            --title "add new member on ${NOW}" \
+            --title "add new member ${NEW_MEMBER}" \
             --body "This PR created by GitHub Actions."
