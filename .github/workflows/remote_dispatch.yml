@@ -31,7 +31,7 @@ jobs:
           NEW_MEMBER: ${{ github.event.client_payload.member }}
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
-          if grep -q "\- ${NEW_MEMBER}" files/users.yml; then 
+          if grep -q "^\- ${NEW_MEMBER}$" files/users.yml; then 
             echo "${NEW_MEMBER} is already an member in org."; 
             exit 0
           fi
